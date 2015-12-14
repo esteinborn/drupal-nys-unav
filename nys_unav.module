@@ -2,18 +2,29 @@
 
 /**
  * @file
- * A simple module to display the NYS banner
+ * Integration module for NYS Universal Navigation.
+ * Defines two blocks, NYS uNav Header and NYS uNav Footer.
+ * Can also be integrated directly into a theme.
+ * See:  https://github.com/ny/universal-navigation
  */
 
 /**
  * Implements hook_block_info().
  */
-function nys_banner_block_info() {
-  $blocks['nys_banner'] = array(
-    // The name that will appear in the block list.
-    'info' => t('NYS Banner'),
-    // Default setting.
-    'cache' => DRUPAL_CACHE_PER_ROLE,
+function nys_unav_block_info() {
+  $blocks[] = array(
+	'nys_unav_header' => array(
+		// The name that will appear in the block list.
+		'info' => t('NYS uNav Header'),
+		// Disable caching in MVP.
+		'cache' => DRUPAL_NO_CACHE,
+	),
+	'nys_unav_footer' => array(
+		// The name that will appear in the block list.
+		'info' => t('NYS uNav Footer'),
+		// Disable caching in MVP.
+		'cache' => DRUPAL_NO_CACHE,
+	),
   );
   return $blocks;
 }
@@ -23,10 +34,17 @@ function nys_banner_block_info() {
  */
 function nys_banner_block_view($delta = '') {
   switch ($delta) {
-    case 'nys_banner':
+    case 'nys_unav_header':
       // set block subject and content
-      $block['subject'] = t('NYS Banner');
-      $block['content'] = _nys_banner();
+      $block['subject'] = t('NYS uNav Header');
+      $block['content'] = nys_unav_header();
+
+      return $block;
+      break;
+    case 'nys_unav_footer':
+      // set block subject and content
+      $block['subject'] = t('NYS uNav Footer');
+      $block['content'] = nys_unav_footer();
 
       return $block;
       break;
@@ -34,26 +52,35 @@ function nys_banner_block_view($delta = '') {
 }
 
 /**
- * Non-hook function to read banner content and include js and css files.
- * Returns raw html content suitable for prints.
+ * Non-hook function to generate header block content.
+ * Returns raw html content suitable for printing in theme.
  */
-function _nys_banner() {
-  // get module path
-  $module_path = drupal_get_path('module', 'nys_banner');
+function nys_unav_header() {
+	$header = <<<'HEADER'
+<!-- uNav static header -->
+<iframe id="nygov-universal-navigation-frame" class="nygov-universal-container" width="100%" height="86px" src="//static-assets.ny.gov/load_global_menu/ajax?iframe=true&xdiframe=%2Fsites%2Fall%2Fthemes%2Fbsc%2Ftemplates%2Fxd_nygov.html" data-updated="2014-11-07 08:30" frameborder="0" style="border:none; overflow:hidden; width:100%; height:86px;" scrolling="no">
+            Your browser does not support iFrames
+</iframe>
+<!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T4FP6H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0];var j=d.createElement(s);var dl=l!='dataLayer'?'&l='+l:'';j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;j.type='text/javascript';j.async=true;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T4FP6H');</script>
+<!-- End Google Tag Manager -->
+<!-- end uNav static header -->
+	HEADER;
+	return $header;
+}
 
-  // get html content
-  $html_content = file_get_contents($module_path . '/nys_banner.inc');
-
-  // fix image paths
-  $html_content = str_replace('%%IMAGEPATH%%', '/' . $module_path . '/images/', 
-      $html_content);
-
-  // include js file
-  drupal_add_js($module_path . '/nys_banner.js');
-
-  // include css file
-  drupal_add_css($module_path . '/nys_banner.css');
-
-  // return raw content for print or block inclusion
-  return $html_content;
+/**
+ * Non-hook function to generate footer block content.
+ * Returns raw html content suitable for printing in theme.
+ */
+function nys_unav_footer() {
+	$footer = 'FOOTER'
+<!-- uNav static footer -->
+<iframe id="nygov-universal-footer-frame" class="nygov-universal-container" width="100%" height="200px" src="//static-assets.ny.gov/load_global_footer/ajax?iframe=true" data-updated="2014-11-07 08:30" frameborder="0" style="border:none; overflow:hidden; width:100%; height:200px;" scrolling="no">
+            Your browser does not support iFrames
+</iframe>
+<!-- end uNav static footer -->
+	FOOTER;
+	return $footer;
 }
