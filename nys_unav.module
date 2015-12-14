@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * A simple module to display the NYS banner
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function nys_banner_block_info() {
+  $blocks['nys_banner'] = array(
+    // The name that will appear in the block list.
+    'info' => t('NYS Banner'),
+    // Default setting.
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nys_banner_block_view($delta = '') {
+  switch ($delta) {
+    case 'nys_banner':
+      // set block subject and content
+      $block['subject'] = t('NYS Banner');
+      $block['content'] = _nys_banner();
+
+      return $block;
+      break;
+  }
+}
+
+/**
+ * Non-hook function to read banner content and include js and css files.
+ * Returns raw html content suitable for prints.
+ */
+function _nys_banner() {
+  // get module path
+  $module_path = drupal_get_path('module', 'nys_banner');
+
+  // get html content
+  $html_content = file_get_contents($module_path . '/nys_banner.inc');
+
+  // fix image paths
+  $html_content = str_replace('%%IMAGEPATH%%', '/' . $module_path . '/images/', 
+      $html_content);
+
+  // include js file
+  drupal_add_js($module_path . '/nys_banner.js');
+
+  // include css file
+  drupal_add_css($module_path . '/nys_banner.css');
+
+  // return raw content for print or block inclusion
+  return $html_content;
+}

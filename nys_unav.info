@@ -1,0 +1,3 @@
+name = NYS uNav
+description = Add blocks and support to display the NYS Universal Navigation
+core = 7.x
