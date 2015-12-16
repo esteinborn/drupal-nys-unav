@@ -52,6 +52,28 @@ function nys_unav_block_view($delta = '') {
 }
 
 /**
+ * Implements hook_page_build().
+ *
+ * Add uNav header and footer to the page_top and page_bottom regions
+ * automatically if Drupal variable nys_unav_auto is TRUE.
+ * But don't add uNav if on an administrative page.
+ */
+function nys_unav_page_build(&$page) {
+  if (!variable_get('nys_unav_auto', FALSE) || path_is_admin(current_path())) {
+    return;
+  }
+
+  $page['page_top']['nys_unav'] = array(
+    '#weight' => -1000,
+    '#markup' => nys_unav_header(),
+  );
+  $page['page_bottom']['nys_unav'] = array(
+    '#weight' => 1000,
+    '#markup' => nys_unav_footer(),
+  );
+}
+
+/**
  * Non-hook function to generate header block content.
  * Returns raw html content suitable for printing in theme.
  */
