@@ -19,7 +19,7 @@ function nys_unav_install() {
   // Add the variable nys_unav_auto and set it TRUE.
   variable_set('nys_unav_auto', TRUE);
   // Find the maximum module weight of enabled modules
-  $max_weight = $max_weight = db_query('SELECT weight FROM {system} WHERE name = :name', array(':name' => 'nys_unav'))->fetchField();
+  $max_weight = db_query('SELECT weight FROM {system} WHERE name = :name', array(':name' => 'nys_unav'))->fetchField();
 
   // Set our module to a weight 10 heavier, so ours moves lower in execution order
   db_update('system')
