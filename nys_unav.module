@@ -59,10 +59,15 @@ function nys_unav_block_view($delta = '') {
  * But don't add uNav if on an administrative page.
  */
 function nys_unav_page_build(&$page) {
+  // Skip menu if not Auto or on administrative page.
   if (!variable_get('nys_unav_auto', FALSE) || path_is_admin(current_path())) {
     return;
   }
-
+  // Performance: Skip this entirely for AJAX requests.
+  // Code from admin_menu module, seemed like a good idea.
+  if (strpos($_GET['q'], 'js/') === 0) {
+    return;
+  }
   $page['page_top']['nys_unav'] = array(
     '#weight' => -1000,
     '#markup' => nys_unav_header(),

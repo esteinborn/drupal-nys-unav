@@ -25,6 +25,7 @@ function nys_unav_install() {
   db_update('system')
     ->fields(array('weight' => $max_weight + 10))
     ->condition('name', 'nys_unav', '=')
+    ->condition('type', 'module', '=')
     ->execute();
 
 }
