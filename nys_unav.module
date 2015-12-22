@@ -70,11 +70,27 @@ function nys_unav_page_build(&$page) {
   }
   $page['page_top']['nys_unav'] = array(
     '#weight' => -1000,
-    '#markup' => nys_unav_header(),
+    '#theme' => 'nys_unav_header',
   );
   $page['page_bottom']['nys_unav'] = array(
     '#weight' => 1000,
-    '#markup' => nys_unav_footer(),
+    '#theme' => 'nys_unav_footer',
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function nys_unav_theme() {
+  return array(
+    'nys_unav_header' => array(
+      'template' => 'nys-unav-header',
+      'variables' => array(),
+    ),
+    'nys_unav_footer' => array(
+      'template' => 'nys-unav-footer',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -83,17 +99,7 @@ function nys_unav_page_build(&$page) {
  * Returns raw html content suitable for printing in theme.
  */
 function nys_unav_header() {
-	$header = <<<'HEADER'
-<!-- uNav static header -->
-<iframe id="nygov-universal-navigation-frame" class="nygov-universal-container" width="100%" height="86px" src="//static-assets.ny.gov/load_global_menu/ajax?iframe=true&xdiframe=%2Fsites%2Fall%2Fthemes%2Fbsc%2Ftemplates%2Fxd_nygov.html" data-updated="2014-11-07 08:30" frameborder="0" style="border:none; overflow:hidden; width:100%; height:86px;" scrolling="no">
-            Your browser does not support iFrames
-</iframe>
-<!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T4FP6H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0];var j=d.createElement(s);var dl=l!='dataLayer'?'&l='+l:'';j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;j.type='text/javascript';j.async=true;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T4FP6H');</script>
-<!-- End Google Tag Manager -->
-<!-- end uNav static header -->
-HEADER;
+	$header = theme('nys_unav_header');
 	return $header;
 }
 
@@ -102,12 +108,6 @@ HEADER;
  * Returns raw html content suitable for printing in theme.
  */
 function nys_unav_footer() {
-	$footer = <<<'FOOTER'
-<!-- uNav static footer -->
-<iframe id="nygov-universal-footer-frame" class="nygov-universal-container" width="100%" height="200px" src="//static-assets.ny.gov/load_global_footer/ajax?iframe=true" data-updated="2014-11-07 08:30" frameborder="0" style="border:none; overflow:hidden; width:100%; height:200px;" scrolling="no">
-            Your browser does not support iFrames
-</iframe>
-<!-- end uNav static footer -->
-FOOTER;
+	$footer = theme('nys_unav_footer');
 	return $footer;
 }
