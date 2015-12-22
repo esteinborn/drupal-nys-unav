@@ -47,3 +47,6 @@ Then, in the theme html.tpl.php file add the following code right after the bloc
     ?>
 
 Since this code is inside a template, remember to use both the <?php and ?> closing tags.  The order of the variables in the assignment statements are important.  The first ensures the uNav header is before any module generated HTML, the second ensures the uNav foot is after any module generated HTML.
+
+## Updating uNav Embed Code ##
+The uNav embed code(s) are contained in the two template files nys-unav-header.tpl.php and nys-unav-footer.tpl.php.  Should the State of New York require changes to the embed code, update the module to the latest version or edit those template files.
