@@ -1,3 +1,16 @@
+<?php
+
+/**
+ * @file
+ * New York State Universal Navigation Header iFrame embed code.
+ * See https://github.com/ny/universal-navigation for latest version.
+ *
+ * Variables:
+ * - none.
+ *
+ * @ingroup themeable
+ */
+?>
 <!-- uNav static header -->
 <iframe id="nygov-universal-navigation-frame" class="nygov-universal-container" width="100%" height="86px" src="//static-assets.ny.gov/load_global_menu/ajax?iframe=true&xdiframe=%2Fsites%2Fall%2Fthemes%2Fbsc%2Ftemplates%2Fxd_nygov.html" data-updated="2014-11-07 08:30" frameborder="0" style="border:none; overflow:hidden; width:100%; height:86px;" scrolling="no">
   Your browser does not support iFrames
