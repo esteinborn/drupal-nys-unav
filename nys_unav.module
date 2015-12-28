@@ -3,9 +3,10 @@
 /**
  * @file
  * Integration module for NYS Universal Navigation.
+ *
  * Defines two blocks, NYS uNav Header and NYS uNav Footer.
  * Can also be integrated directly into a theme.
- * See:  https://github.com/ny/universal-navigation
+ * See:  https://github.com/ny/universal-navigation.
  */
 
 /**
@@ -13,18 +14,18 @@
  */
 function nys_unav_block_info() {
   $blocks = array(
-	'nys_unav_header' => array(
-		// The name that will appear in the block list.
-		'info' => t('NYS uNav Header'),
-		// Disable caching in MVP.
-		'cache' => DRUPAL_NO_CACHE,
-	),
-	'nys_unav_footer' => array(
-		// The name that will appear in the block list.
-		'info' => t('NYS uNav Footer'),
-		// Disable caching in MVP.
-		'cache' => DRUPAL_NO_CACHE,
-	),
+    'nys_unav_header' => array(
+      // The name that will appear in the block list.
+      'info' => t('NYS uNav Header'),
+      // Disable caching in MVP.
+      'cache' => DRUPAL_NO_CACHE,
+    ),
+    'nys_unav_footer' => array(
+      // The name that will appear in the block list.
+      'info' => t('NYS uNav Footer'),
+      // Disable caching in MVP.
+      'cache' => DRUPAL_NO_CACHE,
+    ),
   );
   return $blocks;
 }
@@ -35,19 +36,17 @@ function nys_unav_block_info() {
 function nys_unav_block_view($delta = '') {
   switch ($delta) {
     case 'nys_unav_header':
-      // set block subject and content
+      // Set block subject and content.
       $block['subject'] = t('NYS uNav Header');
       $block['content'] = nys_unav_header();
-
       return $block;
-      break;
+
     case 'nys_unav_footer':
-      // set block subject and content
+      // Set block subject and content.
       $block['subject'] = t('NYS uNav Footer');
       $block['content'] = nys_unav_footer();
-
       return $block;
-      break;
+
   }
 }
 
@@ -96,18 +95,20 @@ function nys_unav_theme() {
 
 /**
  * Non-hook function to generate header block content.
+ *
  * Returns raw html content suitable for printing in theme.
  */
 function nys_unav_header() {
-	$header = theme('nys_unav_header');
-	return $header;
+  $header = theme('nys_unav_header');
+  return $header;
 }
 
 /**
  * Non-hook function to generate footer block content.
+ *
  * Returns raw html content suitable for printing in theme.
  */
 function nys_unav_footer() {
-	$footer = theme('nys_unav_footer');
-	return $footer;
+  $footer = theme('nys_unav_footer');
+  return $footer;
 }
