@@ -10,6 +10,22 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function nys_unav_menu() {
+  $items['admin/config/user-interface/nys-unav'] = array(
+    'title' => 'NYS Universal Navigation',
+    'description' => 'Configure NYS Universal Navigation Header and Footer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('nys_unav_admin_settings'),
+    'access arguments' => array('administer nys unav'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'nys_unav.admin.inc',
+  );
+  return $items;
+}
+
+/**
  * Implements hook_block_info().
  */
 function nys_unav_block_info() {
@@ -69,7 +85,7 @@ function nys_unav_page_build(&$page) {
   }
   $page['page_top']['nys_unav'] = array(
     '#weight' => -1000,
-    '#theme' => 'nys_unav_header',
+    '#theme' => ((variable_get('nys_unav_interactive', TRUE)) ? 'nys_unav_header_interactive' : 'nys_unav_header_static'),
   );
   $page['page_bottom']['nys_unav'] = array(
     '#weight' => 1000,
@@ -78,12 +94,27 @@ function nys_unav_page_build(&$page) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function nys_unav_permission() {
+  return array(
+    'administer nys unav' => array(
+      'title' => t('Administer NYS Universal Navigation'),
+    ),
+  );
+}
+
+/**
  * Implements hook_theme().
  */
 function nys_unav_theme() {
   return array(
-    'nys_unav_header' => array(
-      'template' => 'nys-unav-header',
+    'nys_unav_header_static' => array(
+      'template' => 'nys-unav-header-static',
+      'variables' => array(),
+    ),
+    'nys_unav_header_interactive' => array(
+      'template' => 'nys-unav-header-interactive',
       'variables' => array(),
     ),
     'nys_unav_footer' => array(
@@ -99,7 +130,7 @@ function nys_unav_theme() {
  * Returns raw html content suitable for printing in theme.
  */
 function nys_unav_header() {
-  $header = theme('nys_unav_header');
+  $header = (variable_get('nys_unav_interactive', TRUE)) ? theme('nys_unav_header_interactive') : theme('nys_unav_header_static');
   return $header;
 }
 
