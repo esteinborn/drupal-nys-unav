@@ -29,6 +29,10 @@ function nys_unav_menu() {
  * Implements hook_block_info().
  */
 function nys_unav_block_info() {
+  // If automatic insertion is enabled, don't show block options.
+  if (variable_get('nys_unav_auto', FALSE)) {
+    return array();
+  }
   $blocks = array(
     'nys_unav_header' => array(
       // The name that will appear in the block list.
@@ -50,6 +54,10 @@ function nys_unav_block_info() {
  * Implements hook_block_view().
  */
 function nys_unav_block_view($delta = '') {
+  // If automatic insertion is enabled, don't show block options.
+  if (variable_get('nys_unav_auto', FALSE)) {
+    return array();
+  }
   switch ($delta) {
     case 'nys_unav_header':
       // Set block subject and content.
