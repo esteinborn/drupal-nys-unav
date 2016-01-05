@@ -3,9 +3,20 @@ All state of New York websites are required to have the state Universal
  Navigation bar at the top and bottom of the site, surrounding any other
  content.  The content of the bars are iFrames, this module makes it
  easy to integrate them on a Drupal site.
-## Installation ##
-- Install as usual, see http://drupal.org/node/70151 for further information.
+
+## Installation and Configuration ##
+- Install as usual, see [http://drupal.org/node/70151](http://drupal.org/node/70151)
+  for further information.
 - Enable the module.
+- Go to Configuration >> User Interface >> NYS Universal Navigation
+  (/admin/config/user-interface/nys-unav) to configure the module.
+  You can also reach the configuration page from the Configure link on the
+  module page.
+  - The configuration page has two options:
+		- Whether to automatically insert the header/footer
+		- Whether to use the interactive or static uNav header
+  - *Note that if you don't configure the module, it will default to
+  automatic insertion and the interactive version of the header.*
 - The module will automatically insert the Universal Navigation at the top
   and the Universal footer at the bottom of your website's page;
   outside of any page HTML.
@@ -19,9 +30,9 @@ This project was sponsored by the New York State Office of Information
  Technology Services WebNY department.
 
 ## Use ##
-Enabling the module on your site will insert the Universal Navigation
- at the top and the Universal footer at the bottom of your website's page;
- outside of any page HTML.
+Enabling the module on your site will, by default, insert the Universal
+ Navigation at the top and the Universal footer at the bottom of your website's
+  page; outside of any page HTML.
 
 The Universal Navigation will **not** display on any site administration
  pages, for most sites administration pages use the Seven or other contributed
@@ -109,3 +120,13 @@ The uNav embed code(s) are contained in the two template files
  nys-unav-header.tpl.php and nys-unav-footer.tpl.php.  Should the State of
  New York require changes to the embed code, update the module to the latest
  version or edit those template files.
+
+## Adapting This Module for Non-NYS Sites ##
+Since the uNav embed codes are simple HTML iFrames with some in-line Javascript,
+ this module could be used on any site to insert an HTML header and/or footer.
+ One possible use might be to insert a banner/footer that is enabled or
+ disabled by enabling/disabling the module.  Simply copy the same two template
+ files, nys-unav-header.tpl.php and nys-unav-footer.tpl.php, into your custom
+ theme and replace the contents of the template(s) with your own
+ HTML, in-line Javascript and/or in-line CSS.  If you don't need either the
+ header or footer, simply have an empty template file.
